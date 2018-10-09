@@ -1,0 +1,3 @@
+auth0:
+  issuer: https://fomene.auth0.com/
+  apiAudience: https://localhost:8080/api
