@@ -4,6 +4,9 @@ package com.example.oauthimplicit;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 public class AppController {
@@ -30,5 +33,18 @@ public class AppController {
         return new JSONObject()
                 .put("message", "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.")
                 .toString();
+    }
+
+    @RequestMapping(value = "/config", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String getAppConfigs(){
+
+        return new JSONObject()
+                .put("domain", System.getenv("DOMAIN"))
+                .put("clientID", System.getenv("CLIENT_ID"))
+                .put("audience", System.getenv("AUDIENCE"))
+                .put("issuer", System.getenv("ISSUER"))
+                .toString();
+
     }
 }
