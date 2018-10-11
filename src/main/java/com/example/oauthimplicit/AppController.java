@@ -1,6 +1,7 @@
 package com.example.oauthimplicit;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -8,6 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AppController {
+    @Value(value = "${auth0.apiAudience}")
+    private String apiAudience;
+    @Value(value = "${auth0.domain}")
+    private String domain;
+    @Value(value = "${auth0.clientId}")
+    private String clientId;
 
     @RequestMapping(value = "/api/public", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -36,12 +43,11 @@ public class AppController {
     @RequestMapping(value = "/config", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String getAppConfigs() {
-
         return new JSONObject()
-                .put("domain", System.getenv("DOMAIN"))
-                .put("clientID", System.getenv("CLIENT_ID"))
-                .put("audience", System.getenv("AUDIENCE"))
-                .put("issuer", System.getenv("ISSUER"))
+                .put("domain", domain)
+                .put("clientID", clientId)
+                .put("audience", apiAudience)
+                .put("issuer", "https://" + domain)
                 .toString();
 
     }
