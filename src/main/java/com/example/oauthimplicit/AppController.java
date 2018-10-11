@@ -4,8 +4,6 @@ package com.example.oauthimplicit;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController

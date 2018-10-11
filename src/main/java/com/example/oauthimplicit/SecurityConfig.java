@@ -1,6 +1,7 @@
 package com.example.oauthimplicit;
 
 import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,23 +18,16 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //@Value(value = "${auth0.apiAudience}")
+    @Value(value = "${auth0.apiAudience}")
     private String apiAudience;
-
-    //@Value(value = "${auth0.issuer}")
+    @Value(value = "${auth0.issuer}")
     private String issuer;
-
-
-    public SecurityConfig(){
-        apiAudience = System.getenv("AUDIENCE");
-        issuer = System.getenv("ISSUER");
-    }
 
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("Authorization");
@@ -44,8 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
         http.cors();
         JwtWebSecurityConfigurer
                 .forRS256(apiAudience, issuer)

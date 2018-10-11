@@ -5,7 +5,8 @@ $('document').ready(function() {
   loadingSpinner.css('display', 'none');
 
   var userProfile;
-  var apiUrl;
+  var apiUrl = "http://localhost:8080/api";
+
   var envVar = $.parseJSON($.ajax({
     url:  "/config",
     dataType: "json",
@@ -22,9 +23,6 @@ $('document').ready(function() {
     scope: 'openid profile read:messages',
     leeway: 60
   });
-
-  //Set api url from env vars
-  apiUrl = envVar.audience;
 
   var homeView = $('#home-view');
   var profileView = $('#profile-view');
