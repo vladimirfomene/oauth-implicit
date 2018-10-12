@@ -1,3 +1,4 @@
 auth0:
-  apiAudience: <YOUR-API-AUDIENCE>
-  issuer: <YOUR-ISSUER>
+  apiAudience: https://localhost:8080/api
+  clientId: r1XvmhO4ZfJDGQBw7v1XqtRK6pYVL2w5
+  domain: bk-tmp.auth0.com
