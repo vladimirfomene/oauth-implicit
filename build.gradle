@@ -29,7 +29,6 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 
 	implementation('org.springframework.boot:spring-boot-starter-security')
-	//compile('org.springframework.security.oauth:spring-security-oauth2:2.3.3.RELEASE')
 	compile('org.json:json:20180813')
 	compile('com.auth0:auth0-spring-security-api:1.0.0-rc.3')
 	compile('javax.xml.bind:jaxb-api:2.3.0')
