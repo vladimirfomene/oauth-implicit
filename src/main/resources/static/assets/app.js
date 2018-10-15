@@ -87,14 +87,12 @@ $('document').ready(function() {
       authResult.expiresIn * 1000 + new Date().getTime()
     );
     this.access_token = authResult.accessToken;
-    this.id_token = authResult.idToken;
     this.expires_at = expiresAt;
   }
 
   function logout() {
     // Remove tokens and expiry time from browser
     this.access_token = null;
-    this.id_token = null;
     this.expires_at = null;
     pingMessage.css('display', 'none');
     displayButtons();
@@ -161,7 +159,7 @@ $('document').ready(function() {
 
   function handleAuthentication() {
     webAuth.parseHash(function(err, authResult) {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken) {
         window.location.hash = '';
         setSession(authResult);
         loginBtn.css('display', 'none');

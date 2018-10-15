@@ -1,47 +1,29 @@
 package com.example.oauthimplicit;
 
-import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-import java.util.Arrays;
-
-@EnableWebSecurity
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Value(value = "${auth0.apiAudience}")
-    private String apiAudience;
-    @Value(value = "${auth0.domain}")
-    private String domain;
+@EnableResourceServer
+public class SecurityConfig extends ResourceServerConfigurerAdapter {
+    @Value("${security.oauth2.resource.id}")
+    private String resourceId;
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedHeader("Authorization");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .mvcMatchers("/api/public").permitAll()
+                .antMatchers("/api/private-scoped").hasRole("read:messages")
+                .mvcMatchers("/api/**").authenticated()
+                .anyRequest().permitAll();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
-        JwtWebSecurityConfigurer
-                .forRS256(apiAudience, "https://" + domain + "/")
-                .configure(http)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/private").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages");
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.resourceId(resourceId);
     }
 }
