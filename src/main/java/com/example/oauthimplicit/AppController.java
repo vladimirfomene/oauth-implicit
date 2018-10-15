@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AppController {
+
     @Value(value = "${auth0.apiAudience}")
     private String apiAudience;
+
     @Value(value = "${auth0.domain}")
     private String domain;
+
     @Value(value = "${auth0.clientId}")
     private String clientId;
 
