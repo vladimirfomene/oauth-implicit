@@ -86,16 +86,16 @@ $('document').ready(function() {
     var expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+    this.access_token = authResult.accessToken;
+    this.id_token = authResult.idToken;
+    this.expires_at = expiresAt;
   }
 
   function logout() {
-    // Remove tokens and expiry time from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    // Remove tokens and expiry time from browser
+    this.access_token = null;
+    this.id_token = null;
+    this.expires_at = null;
     pingMessage.css('display', 'none');
     displayButtons();
   }
@@ -103,7 +103,7 @@ $('document').ready(function() {
   function isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    var expiresAt = this.expires_at;
     return new Date().getTime() < expiresAt;
   }
 
@@ -135,7 +135,7 @@ $('document').ready(function() {
 
   function getProfile() {
     if (!userProfile) {
-      var accessToken = localStorage.getItem('access_token');
+      var accessToken = this.access_token;
 
       if (!accessToken) {
         console.log('Access token must exist to fetch profile');
@@ -181,7 +181,7 @@ $('document').ready(function() {
 
   function callAPI(endpoint, secured) {
     var url = apiUrl + endpoint;
-    var accessToken = localStorage.getItem('access_token');
+    var accessToken = this.access_token;
 
     var headers;
     if (secured && accessToken) {
