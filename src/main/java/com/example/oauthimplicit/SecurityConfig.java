@@ -17,7 +17,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/api/public").permitAll()
-                .antMatchers("/api/private-scoped").hasRole("read:messages")
+                .antMatchers("/api/private-scoped").access("#oauth2.hasScope('read:messages')")
                 .mvcMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
     }
