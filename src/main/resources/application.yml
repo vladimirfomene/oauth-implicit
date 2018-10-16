@@ -1,4 +1,10 @@
 auth0:
-  apiAudience: https://localhost:8080/api
-  clientId: D0MVJF4wcoSsvTRANVzb6XvCl4541p9V
   domain: fomene.auth0.com
+  clientId: D0MVJF4wcoSsvTRANVzb6XvCl4541p9V
+
+security:
+  oauth2:
+    resource:
+      jwk:
+        keySetUri: https://fomene.auth0.com/.well-known/jwks.json
+      id: https://localhost:8080/api

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppController {
 
-    @Value(value = "${auth0.apiAudience}")
-    private String apiAudience;
+    @Value("${security.oauth2.resource.id}")
+    private String resourceId;
 
-    @Value(value = "${auth0.domain}")
+    @Value("${auth0.domain}")
     private String domain;
 
-    @Value(value = "${auth0.clientId}")
+    @Value("${auth0.clientId}")
     private String clientId;
 
     @RequestMapping(value = "/api/public", method = RequestMethod.GET, produces = "application/json")
@@ -49,8 +49,7 @@ public class AppController {
         return new JSONObject()
                 .put("domain", domain)
                 .put("clientID", clientId)
-                .put("audience", apiAudience)
-                .put("issuer", "https://" + domain)
+                .put("audience", resourceId)
                 .toString();
 
     }
