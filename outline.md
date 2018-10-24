@@ -1,24 +1,28 @@
-# Developing And Securing A Resource Server With Spring Boot Oauth And Auth0
+# Securing SPAs and Spring Boot APIs with the OAuth 2.0 Implicit Grant
 
 **TL:DR:** An introduction to the article giving a brief summary of the what the article
 will focus us.
 
 ## Prerequisites
 Softwares you need to install to follow the tutorial:
-* Jdk 10 or below
+* JDK 10 (and 11?)
 * Any text editor or IDE of your choice, though I recommend Intellij
-* An Auth0 account
 
-## What is Oauth?
+## What is OAuth 2.0?
 
-## What is the Oauth Implicit flow?
+## What is the OAuth 2.0 Implicit flow?
 
-## Securing a resource server with Oauth
-* Create the API on Auth0
-* Use Spring Boot to create a local resource server.
-* Configure security and authorization with your Auth0 credentials.
+## Securing Spring Boot with OAuth 2.0
+*  Create the API on Auth0
+* Mention that readers will need an OAuth 2.0 implementation (Auth0 in this case)
+* Tell readers to sign up.
+* Tell readers to create an Auth0 Application and an Auth0 API.
+* Use https://start.spring.io to scaffold a new app.
+* Install dependencies
+* Develop the Spring Boot API endpoints
+* Secure the Spring Boot API with OAuth/Auth0
 
-## Accessing the resource server
+## Creating and Securing a SPA with the Implicit Grant
 * Develop an SPA to get access tokens from Auth0
 * Develop operations for accessing the resource server in the SPA.
 

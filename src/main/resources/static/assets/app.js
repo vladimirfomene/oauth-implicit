@@ -92,8 +92,8 @@ $('document').ready(function() {
 
   function logout() {
     // Remove tokens and expiry time from browser
-    this.access_token = null;
-    this.expires_at = null;
+    access_token = null;
+    expires_at = null;
     pingMessage.css('display', 'none');
     displayButtons();
   }
